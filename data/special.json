@@ -1,0 +1,10 @@
+{
+  "active": true,
+  "type": "flat",
+  "value": 70,
+  "label": "MOTHER'S DAY SPECIAL",
+  "appliesTo": ["hybrid-full", "volume-full", "mega-full"],
+  "startDate": "2026-05-01",
+  "endDate": "2026-05-31",
+  "headerMessage": "MOTHER'S DAY SPECIAL · ALL SETS $70 · MAY ONLY"
+}

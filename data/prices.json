@@ -1,0 +1,19 @@
+{
+  "fullSets": [
+    { "id": "classic-full", "name": "Classic Full Set", "price": 65 },
+    { "id": "hybrid-full", "name": "Hybrid Full Set", "price": 75 },
+    { "id": "volume-full", "name": "Volume Full Set", "price": 90 },
+    { "id": "mega-full", "name": "Mega Volume Full Set", "price": 100 }
+  ],
+  "fills": [
+    { "id": "classic-fill", "name": "Classic Fill", "price": 40 },
+    { "id": "hybrid-fill", "name": "Hybrid Fill", "price": 50 },
+    { "id": "volume-fill", "name": "Volume Fill", "price": 65 },
+    { "id": "mega-fill", "name": "Mega Volume Fill", "price": 75 }
+  ],
+  "addOns": [
+    { "id": "removal", "name": "Lash Removal", "price": 20 },
+    { "id": "afterkit", "name": "Lash Afterkit", "price": 10 },
+    { "id": "wispy", "name": "Wispy Lash Add-On", "price": 5 }
+  ]
+}
