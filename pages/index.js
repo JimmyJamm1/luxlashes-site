@@ -191,11 +191,24 @@ function Nav({ page, onNav, theme = "bold" }) {
 
 function SectionTitle({ children }) {
   return (
-    <h2 className="text-center mb-6 flex items-center justify-center gap-2" style={{ fontFamily: SCRIPT, color: PINK, fontSize: 36, lineHeight: 1, textShadow: `0 0 10px rgba(255,20,147,0.7)` }}>
-      <Sparkles size={11} style={{ color: "#fff", filter: `drop-shadow(0 0 3px ${PINK})` }} />
-      {children}
-      <Sparkles size={11} style={{ color: "#fff", filter: `drop-shadow(0 0 3px ${PINK})` }} />
-    </h2>
+    <div className="text-center mb-6">
+      <div className="inline-block relative px-8 py-3" style={{ background: "rgba(10, 5, 8, 0.85)", border: `1px solid rgba(255, 20, 147, 0.4)`, boxShadow: `0 0 20px rgba(255, 20, 147, 0.4), inset 0 0 12px rgba(255, 20, 147, 0.15)` }}>
+        <h2 className="flex items-center justify-center gap-3" style={{ fontFamily: SCRIPT, color: PINK, fontSize: 44, lineHeight: 1, textShadow: `0 0 12px rgba(255,20,147,0.95), 0 0 24px rgba(255,20,147,0.7), 0 0 36px rgba(255,20,147,0.4)` }}>
+          <Sparkles size={14} style={{ color: "#fff", filter: `drop-shadow(0 0 4px ${PINK})` }} />
+          {children}
+          <Sparkles size={14} style={{ color: "#fff", filter: `drop-shadow(0 0 4px ${PINK})` }} />
+        </h2>
+      </div>
+      <div className="flex items-center justify-center gap-1 mt-3" style={{ color: PINK }}>
+        <Heart size={6} fill={PINK} stroke={PINK} />
+        <Heart size={8} fill={PINK} stroke={PINK} />
+        <Heart size={10} fill={PINK} stroke={PINK} />
+        <Heart size={12} fill={PINK} stroke={PINK} />
+        <Heart size={10} fill={PINK} stroke={PINK} />
+        <Heart size={8} fill={PINK} stroke={PINK} />
+        <Heart size={6} fill={PINK} stroke={PINK} />
+      </div>
+    </div>
   );
 }
 
@@ -207,7 +220,7 @@ function Footer() {
   return (
     <footer className="px-6 py-8 text-center text-xs opacity-60" style={{ borderTop: `1px solid rgba(255,20,147,0.2)` }}>
       <p className="mb-1">♡ LuxLashes by Mariee · Montebello, CA ♡</p>
-      <p>All sales & payments through Instagram DMs</p>
+      <p>All function Secsales & payments through Instagram DMs</p>
     </footer>
   );
 }
