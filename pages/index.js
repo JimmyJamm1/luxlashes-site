@@ -708,27 +708,6 @@ function PolicySection({ title, items }) {
 // ============================================================
 // HIDDEN FORM FOR NETLIFY DETECTION
 // ============================================================
-function HiddenNetlifyForm() {
-  return (
-    <form name="booking" data-netlify="true" hidden>
-      <input type="text" name="name" />
-      <input type="text" name="instagram" />
-      <input type="text" name="phone" />
-      <input type="text" name="service" />
-      <input type="text" name="addons" />
-      <input type="text" name="date1" />
-      <input type="text" name="date2" />
-      <input type="text" name="timeWindow" />
-      <input type="text" name="sameDay" />
-      <input type="text" name="firstTime" />
-      <textarea name="allergies"></textarea>
-      <textarea name="notes"></textarea>
-      <input type="text" name="total" />
-    </form>
-  );
-}
-
-// ============================================================
 // STICKY MOBILE BOOK BUTTON
 // ============================================================
 function StickyBook({ page, onNav }) {
@@ -765,7 +744,6 @@ export default function App() {
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
       <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
-        <HiddenNetlifyForm />
         {bannerOpen && page !== "policies" && <Banner onClose={() => setBannerOpen(false)} />}
         <Nav page={page} onNav={nav} theme={page === "policies" ? "refined" : "bold"} />
         {page === "home" && <HomePage onNav={nav} />}
