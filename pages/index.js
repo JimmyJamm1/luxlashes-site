@@ -106,7 +106,7 @@ function calculateTotal(b) {
 }
 
 function buildDmMessage(b, t) {
-  const lines = ["Hi Mariee! Just submitted a booking request \u2661"];
+  const lines = ["Hi Mariee! Just submitted a booking request ♡"];
   if (b.style) lines.push(`Service: ${b.style.name}`);
   if (b.addOns?.length) lines.push(`Add-ons: ${b.addOns.map((a) => a.name).join(", ")}`);
   if (t.discount > 0) lines.push(`${SPECIAL.label} applied: -$${t.discount}`);
@@ -115,7 +115,7 @@ function buildDmMessage(b, t) {
   lines.push(`Total: $${t.total}`);
   if (b.date1) lines.push(`Preferred date: ${b.date1}`);
   if (b.firstTime === "yes") lines.push(`First-time client!`);
-  lines.push(`Sending my $20 deposit now to secure \u2661`);
+  lines.push(`Sending my $20 deposit now to secure ♡`);
   return lines.join("\n");
 }
 
@@ -201,13 +201,13 @@ function SectionTitle({ children }) {
 }
 
 function HeartDivider() {
-  return <div className="text-center py-3 tracking-[0.6em]" style={{ color: PINK, opacity: 0.7 }}>\u2661 \u2661 \u2661</div>;
+  return <div className="text-center py-3 tracking-[0.6em]" style={{ color: PINK, opacity: 0.7 }}>♡ ♡ ♡</div>;
 }
 
 function Footer() {
   return (
     <footer className="px-6 py-8 text-center text-xs opacity-60" style={{ borderTop: `1px solid rgba(255,20,147,0.2)` }}>
-      <p className="mb-1">\u2661 LuxLashes by Mariee · Montebello, CA \u2661</p>
+      <p className="mb-1">♡ LuxLashes by Mariee · Montebello, CA ♡</p>
       <p>All sales & payments through Instagram DMs</p>
     </footer>
   );
@@ -235,7 +235,7 @@ function HomePage({ onNav }) {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button onClick={() => onNav("book")} className="px-7 py-3 text-xs font-bold tracking-widest" style={{ background: PINK, color: BLACK, boxShadow: `0 0 14px rgba(255,20,147,0.6)`, border: `1px solid ${PINK}` }}>
-            BOOK NOW \u2661
+            BOOK NOW ♡
           </button>
           <a href="#gallery" className="px-7 py-3 text-xs font-bold tracking-widest" style={{ background: "transparent", color: PINK, border: `1px solid ${PINK}` }}>
             SEE GALLERY
@@ -249,7 +249,7 @@ function HomePage({ onNav }) {
         <PriceTable group="Fills" items={PRICES.fills} />
         <PriceTable group="Add-Ons" items={PRICES.addOns} />
         <p className="text-xs italic text-center mt-4 opacity-70">
-          \u2661 Deposit via DM. Balance in Cash or Cashapp. Apple Pay/Zelle adds $5 \u2661
+          ♡ Deposit via DM. Balance in Cash or Cashapp. Apple Pay/Zelle adds $5 ♡
         </p>
       </section>
 
@@ -296,7 +296,7 @@ function HomePage({ onNav }) {
         <p style={{ fontFamily: SCRIPT, fontSize: 36, color: PINK, lineHeight: 1, textShadow: `0 0 10px rgba(255,20,147,0.7)` }}>Ready for your set?</p>
         <p className="text-xs tracking-widest mt-2 mb-6 opacity-80">BOOK YOUR APPOINTMENT TODAY</p>
         <button onClick={() => onNav("book")} className="px-10 py-4 text-sm font-bold tracking-widest" style={{ background: PINK, color: BLACK, boxShadow: `0 0 16px rgba(255,20,147,0.7)` }}>
-          BOOK NOW \u2661
+          BOOK NOW ♡
         </button>
       </section>
 
@@ -446,7 +446,7 @@ function BookPage({ onNav }) {
         </p>
         <a href={igDmUrl(dmMessage)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold tracking-widest" style={{ background: PINK, color: BLACK, boxShadow: `0 0 16px rgba(255,20,147,0.7)` }}>
           <Instagram size={18} />
-          OPEN INSTAGRAM \u2661
+          OPEN INSTAGRAM ♡
         </a>
         <button onClick={() => onNav("home")} className="mt-6 text-xs underline opacity-70">Back to home</button>
       </div>
@@ -472,7 +472,7 @@ function BookPage({ onNav }) {
             <FormInput value={b.instagram} onChange={(v) => setB({ ...b, instagram: v })} placeholder="@yourhandle" />
             <FormLabel>Phone (optional)</FormLabel>
             <FormInput value={b.phone} onChange={(v) => setB({ ...b, phone: v })} placeholder="(555) 555-5555" />
-            <p className="text-[10px] italic opacity-60 leading-relaxed">\u2661 Your IG handle is how Mariee will reach you. Make sure it's correct.</p>
+            <p className="text-[10px] italic opacity-60 leading-relaxed">♡ Your IG handle is how Mariee will reach you. Make sure it's correct.</p>
           </div>
         )}
 
@@ -529,7 +529,7 @@ function BookPage({ onNav }) {
 
         {step === 3 && (
           <div className="space-y-4">
-            <p className="text-[11px] italic opacity-80 leading-relaxed mb-2">\u2661 Service takes 3 to 3.5 hours — please book with time in mind.</p>
+            <p className="text-[11px] italic opacity-80 leading-relaxed mb-2">♡ Service takes 3 to 3.5 hours — please book with time in mind.</p>
             <FormLabel>Preferred Date *</FormLabel>
             <FormInput type="date" value={b.date1} onChange={(v) => setB({ ...b, date1: v })} />
             <FormLabel>Backup Date (optional)</FormLabel>
@@ -543,7 +543,7 @@ function BookPage({ onNav }) {
                 { id: "evening", label: "After Hours · After 5 PM (+$15)" },
               ].map((opt) => (
                 <button key={opt.id} onClick={() => setB({ ...b, timeWindow: opt.id })} className="w-full text-left px-4 py-2.5 text-xs italic" style={{ background: b.timeWindow === opt.id ? `rgba(255,20,147,0.2)` : BLACK_CARD, border: `1px solid ${b.timeWindow === opt.id ? PINK : "rgba(255,20,147,0.3)"}`, color: PINK_SOFT }}>
-                  \u2661 {opt.label}
+                  ♡ {opt.label}
                 </button>
               ))}
             </div>
@@ -560,7 +560,7 @@ function BookPage({ onNav }) {
           <div className="space-y-4">
             <FormLabel>Allergies / Sensitivities *</FormLabel>
             <FormInput value={b.allergies} onChange={(v) => setB({ ...b, allergies: v })} placeholder="None, or list anything Mariee should know" multiline />
-            <p className="text-[10px] italic opacity-70 leading-relaxed -mt-2">\u2661 Mariee is home-based with pets. Please disclose any allergies.</p>
+            <p className="text-[10px] italic opacity-70 leading-relaxed -mt-2">♡ Mariee is home-based with pets. Please disclose any allergies.</p>
             <FormLabel>Is this your first appointment with Mariee?</FormLabel>
             <div className="grid grid-cols-2 gap-2">
               {[{ id: "yes", label: "Yes" }, { id: "no", label: "No" }].map((opt) => (
@@ -577,23 +577,23 @@ function BookPage({ onNav }) {
         {b.style && (
           <div className="mt-8 p-4" style={{ background: `linear-gradient(135deg, ${PINK}, ${PINK_DEEP})`, color: BLACK, border: `1px solid ${PINK}`, boxShadow: `0 0 12px rgba(255,20,147,0.4)` }}>
             <div className="flex justify-between text-xs font-bold py-1">
-              <span>\u2661 {b.style.name}</span>
+              <span>♡ {b.style.name}</span>
               <span>${b.style.price}</span>
             </div>
             {b.addOns.map((a) => (
               <div key={a.id} className="flex justify-between text-xs font-bold py-1">
-                <span>\u2661 {a.name}</span>
+                <span>♡ {a.name}</span>
                 <span>+${a.price}</span>
               </div>
             ))}
             {totals.discount > 0 && (
               <div className="flex justify-between text-xs font-bold py-1">
-                <span>\u2661 {SPECIAL.label}</span>
+                <span>♡ {SPECIAL.label}</span>
                 <span>−${totals.discount}</span>
               </div>
             )}
-            {b.timeWindow === "evening" && <div className="flex justify-between text-xs font-bold py-1"><span>\u2661 After-hours fee</span><span>+$15</span></div>}
-            {b.sameDay && <div className="flex justify-between text-xs font-bold py-1"><span>\u2661 Same-day fee</span><span>+$20</span></div>}
+            {b.timeWindow === "evening" && <div className="flex justify-between text-xs font-bold py-1"><span>♡ After-hours fee</span><span>+$15</span></div>}
+            {b.sameDay && <div className="flex justify-between text-xs font-bold py-1"><span>♡ Same-day fee</span><span>+$20</span></div>}
             <div className="flex justify-between font-black text-base pt-2 mt-2 border-t border-black">
               <span>TOTAL</span>
               <span>${totals.total}</span>
@@ -601,7 +601,7 @@ function BookPage({ onNav }) {
           </div>
         )}
 
-        <p className="text-[10px] italic text-center opacity-70 mt-3">\u2661 $20 deposit due via Instagram DM to secure \u2661</p>
+        <p className="text-[10px] italic text-center opacity-70 mt-3">♡ $20 deposit due via Instagram DM to secure ♡</p>
 
         <div className="flex gap-2 mt-8">
           {step > 1 && (
@@ -616,7 +616,7 @@ function BookPage({ onNav }) {
           )}
           {step === 4 && (
             <button onClick={handleSubmit} disabled={!canProceed()} className="flex-1 py-3 text-xs font-bold tracking-widest" style={{ background: canProceed() ? PINK : "rgba(255,20,147,0.3)", color: BLACK, cursor: canProceed() ? "pointer" : "not-allowed", boxShadow: canProceed() ? `0 0 12px rgba(255,20,147,0.7)` : "none" }}>
-              SUBMIT &amp; SEND DEPOSIT ON IG \u2661
+              SUBMIT &amp; SEND DEPOSIT ON IG ♡
             </button>
           )}
         </div>
@@ -627,7 +627,7 @@ function BookPage({ onNav }) {
 }
 
 function FormLabel({ children }) {
-  return <label className="block text-xs font-bold tracking-widest" style={{ color: PINK }}>\u2661 {children}</label>;
+  return <label className="block text-xs font-bold tracking-widest" style={{ color: PINK }}>♡ {children}</label>;
 }
 
 function FormInput({ value, onChange, placeholder, type = "text", multiline = false }) {
@@ -648,9 +648,9 @@ function PoliciesPage({ onNav }) {
       <div className="max-w-2xl mx-auto px-6 py-10">
         <div className="text-center mb-2">
           <h1 style={{ fontFamily: SERIF, fontSize: 42, lineHeight: 1.1, letterSpacing: 0.5, color: BURGUNDY }}>
-            <span style={{ color: ROSE, marginRight: 10 }}>\u2661</span>
+            <span style={{ color: ROSE, marginRight: 10 }}>♡</span>
             Policies &amp; Aftercare
-            <span style={{ color: ROSE, marginLeft: 10 }}>\u2661</span>
+            <span style={{ color: ROSE, marginLeft: 10 }}>♡</span>
           </h1>
           <p className="text-xs italic opacity-70 mt-2 mb-4">read before booking</p>
         </div>
@@ -670,12 +670,12 @@ function PoliciesPage({ onNav }) {
         <PolicySection title="Booking" items={POLICIES.booking} />
         <div className="text-center mt-10">
           <button onClick={() => onNav("book")} className="px-8 py-3 text-xs font-bold tracking-widest" style={{ background: ROSE, color: "#fff", boxShadow: `0 4px 12px rgba(212,134,155,0.4)` }}>
-            READY TO BOOK \u2661
+            READY TO BOOK ♡
           </button>
         </div>
       </div>
       <footer className="text-center py-6 text-xs opacity-60" style={{ borderTop: `1px solid rgba(212,134,155,0.3)` }}>
-        \u2661 LuxLashes by Mariee · Montebello, CA \u2661
+        ♡ LuxLashes by Mariee · Montebello, CA ♡
       </footer>
     </div>
   );
@@ -689,14 +689,14 @@ function PolicySection({ title, items }) {
   return (
     <section className="my-6">
       <h2 className="text-center mb-4 flex items-center justify-center gap-2" style={{ fontFamily: SERIF, fontSize: 18, letterSpacing: 1.2, color: BURGUNDY, fontWeight: 600, textTransform: "uppercase" }}>
-        <span style={{ color: ROSE }}>\u2661</span>
+        <span style={{ color: ROSE }}>♡</span>
         {title}
-        <span style={{ color: ROSE }}>\u2661</span>
+        <span style={{ color: ROSE }}>♡</span>
       </h2>
       <div className="space-y-3">
         {items.map((it, i) => (
           <div key={i} className="flex items-start gap-3 text-sm leading-relaxed">
-            <span style={{ color: ROSE, fontSize: 12, marginTop: 4, flexShrink: 0 }}>\u2661</span>
+            <span style={{ color: ROSE, fontSize: 12, marginTop: 4, flexShrink: 0 }}>♡</span>
             <span>{it}</span>
           </div>
         ))}
