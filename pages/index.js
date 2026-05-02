@@ -164,11 +164,16 @@ function Nav({ page, onNav, theme = "bold" }) {
   );
   return (
     <nav className="sticky top-0 z-40 px-4 py-3 flex items-center justify-between" style={navStyle}>
-      <button onClick={() => onNav("home")} className="flex items-center gap-1">
-        <span style={{ fontFamily: isBold ? SCRIPT : SERIF, fontSize: 22, lineHeight: 1, color: isBold ? PINK : BURGUNDY, textShadow: isBold ? `0 0 8px rgba(255,20,147,0.6)` : "none" }}>
-          LuxLashes
+      <button onClick={() => onNav("home")} className="flex flex-col items-start leading-none">
+        <span className="flex items-center gap-1">
+          <span style={{ fontFamily: isBold ? SCRIPT : SERIF, fontSize: 22, lineHeight: 1, color: isBold ? PINK : BURGUNDY, textShadow: isBold ? `0 0 8px rgba(255,20,147,0.6)` : "none" }}>
+            LuxLashes
+          </span>
+          <Heart size={11} fill={isBold ? PINK : ROSE} stroke={isBold ? PINK : ROSE} />
         </span>
-        <Heart size={11} fill={isBold ? PINK : ROSE} stroke={isBold ? PINK : ROSE} />
+        <span className="text-[8px] tracking-[0.3em] mt-0.5" style={{ color: isBold ? PINK_SOFT : BURGUNDY, fontWeight: 600, opacity: 0.85 }}>
+          BY MARIEE
+        </span>
       </button>
       <div className="hidden sm:flex items-center gap-1">
         <NavLink id="home" label="Home" />
