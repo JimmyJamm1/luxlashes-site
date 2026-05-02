@@ -441,8 +441,8 @@ function BookPage({ onNav }) {
         <div className="max-w-md w-full p-5 mb-6 text-left text-xs italic leading-relaxed" style={{ background: BLACK_CARD, border: `1px solid rgba(255,20,147,0.4)`, whiteSpace: "pre-line" }}>
           {dmMessage}
         </div>
-        <p className="text-sm mb-6 max-w-md leading-relaxed">
-          Tap below to send this message + your <strong style={{ color: PINK }}>$20 deposit</strong> to Mariee on Instagram. She'll confirm your appointment in DMs.
+        <p className="text-sm mb-2 max-w-md leading-relaxed text-center">
+          Send this message + your <strong style={{ color: PINK }}>$20 deposit</strong> to Mariee on Instagram. She'll confirm your appointment in DMs.
         </p>
         <CopyMessageButtons message={dmMessage} />
         <button onClick={() => onNav("home")} className="mt-6 text-xs underline opacity-70">Back to home</button>
@@ -636,6 +636,16 @@ function CopyMessageButtons({ message }) {
   }
   return (
     <div className="flex flex-col items-center gap-3 w-full max-w-md">
+      <div className="w-full px-5 py-4 mb-2" style={{ background: "rgba(255, 20, 147, 0.15)", border: `2px solid ${PINK}`, boxShadow: `0 0 16px rgba(255, 20, 147, 0.6), inset 0 0 12px rgba(255, 20, 147, 0.2)` }}>
+        <p className="text-center font-bold uppercase tracking-wider" style={{ color: "#fff", fontSize: 14, lineHeight: 1.5, textShadow: `0 0 8px rgba(255, 20, 147, 0.8)` }}>
+          ♡ IMPORTANT ♡
+        </p>
+        <p className="text-center font-bold mt-2" style={{ color: "#fff", fontSize: 15, lineHeight: 1.5 }}>
+          1. Tap COPY MESSAGE<br />
+          2. Tap OPEN INSTAGRAM<br />
+          3. Paste the message in your DM
+        </p>
+      </div>
       <button onClick={copyAndOpen} className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold tracking-widest w-full" style={{ background: copied ? "#0a0508" : PINK, color: copied ? PINK : "#0a0508", border: `2px solid ${PINK}`, boxShadow: `0 0 12px rgba(255,20,147,0.5)` }}>
         {copied ? "✓ MESSAGE COPIED ♡" : "COPY MESSAGE ♡"}
       </button>
@@ -643,9 +653,6 @@ function CopyMessageButtons({ message }) {
         <Instagram size={18} />
         OPEN INSTAGRAM ♡
       </a>
-      <p className="text-xs italic opacity-80 mt-2 px-4 text-center leading-relaxed">
-        ♡ Tap COPY first, then OPEN INSTAGRAM. Paste the message in your DM with Mariee. ♡
-      </p>
     </div>
   );
 }
