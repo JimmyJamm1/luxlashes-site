@@ -748,25 +748,7 @@ function PolicySection({ title, items }) {
 
 
 
-function PolicySection({ title, items }) {
-  return (
-    <section className="my-6">
-      <h2 className="text-center mb-4 flex items-center justify-center gap-2" style={{ fontFamily: SERIF, fontSize: 18, letterSpacing: 1.2, color: BURGUNDY, fontWeight: 600, textTransform: "uppercase" }}>
-        <span style={{ color: ROSE }}>♡</span>
-        {title}
-        <span style={{ color: ROSE }}>♡</span>
-      </h2>
-      <div className="space-y-3">
-        {items.map((it, i) => (
-          <div key={i} className="flex items-start gap-3 text-sm leading-relaxed">
-            <span style={{ color: ROSE, fontSize: 12, marginTop: 4, flexShrink: 0 }}>♡</span>
-            <span>{it}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+
 
 // ============================================================
 // HIDDEN FORM FOR NETLIFY DETECTION
