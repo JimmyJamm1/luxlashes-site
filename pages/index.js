@@ -4,7 +4,7 @@ import { Heart, Instagram, Star, Menu, X, Check, ChevronRight, ChevronLeft, Spar
 
 import PRICES from "../data/prices.json";
 import SPECIAL from "../data/special.json";
-import TESTIMONIALS from "../data/testimonials.json";
+
 
 // ============================================================
 // BRAND CONSTANTS
@@ -288,16 +288,7 @@ function HomePage({ onNav }) {
         </div>
       </section>
 
-      <HeartDivider />
-
-      <section className="px-6 py-12 max-w-3xl mx-auto">
-        <SectionTitle>What Clients Say</SectionTitle>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {TESTIMONIALS.map((t, i) => <TestimonialCard key={i} {...t} />)}
-        </div>
-      </section>
-
-      <HeartDivider />
+      
 
       <section className="px-6 py-12 max-w-3xl mx-auto text-center">
         <SectionTitle>Follow on Instagram</SectionTitle>
@@ -353,20 +344,7 @@ function PriceTable({ group, items }) {
   );
 }
 
-function TestimonialCard({ name, service, rating, quote }) {
-  return (
-    <div className="relative p-4 text-sm italic" style={{ background: BLACK_CARD, border: `1px solid rgba(255,20,147,0.4)` }}>
-      <Heart size={11} fill={PINK} stroke={PINK} className="absolute top-2 right-2" />
-      <div className="flex gap-0.5 mb-2" style={{ color: PINK }}>
-        {Array.from({ length: rating }).map((_, i) => <Star key={i} size={11} fill={PINK} stroke={PINK} />)}
-      </div>
-      <p className="mb-3 leading-relaxed">"{quote}"</p>
-      <p className="text-[10px] not-italic font-bold tracking-widest" style={{ color: PINK }}>
-        — {name.toUpperCase()} · {service.toUpperCase()}
-      </p>
-    </div>
-  );
-}
+
 
 function CertGallery() {
   const [idx, setIdx] = useState(0);
