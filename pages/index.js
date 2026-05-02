@@ -218,9 +218,9 @@ function HeartDivider() {
 
 function Footer() {
   return (
-    <footer className="px-6 py-8 text-center text-xs opacity-60" style={{ borderTop: `1px solid rgba(255,20,147,0.2)` }}>
-      <p className="mb-1">♡ LuxLashes by Mariee · Montebello, CA ♡</p>
-      <p>All function Secsales & payments through Instagram DMs</p>
+    <footer className="px-6 py-8 text-center" style={{ borderTop: `1px solid rgba(255,20,147,0.3)`, background: "rgba(10, 5, 8, 0.6)" }}>
+      <p className="mb-2 text-sm" style={{ color: "#fff", fontWeight: 600 }}>♡ LuxLashes by Mariee · Montebello, CA ♡</p>
+      <p className="text-xs" style={{ color: PINK_SOFT }}>All sales &amp; payments through Instagram DMs</p>
     </footer>
   );
 }
@@ -237,14 +237,17 @@ function HomePage({ onNav }) {
           <Heart size={10} fill={PINK} stroke={PINK} />
           <Sparkles size={12} style={{ color: "#fff" }} />
         </div>
-        <h1 style={{ fontFamily: SCRIPT, color: PINK, fontSize: "clamp(56px, 14vw, 96px)", lineHeight: 0.95, textShadow: `0 0 14px rgba(255,20,147,0.8), 0 0 28px rgba(255,20,147,0.5)`, margin: "8px 0" }}>
-          Lux Lashes
-        </h1>
-        <p className="text-xs tracking-[0.4em] mt-2 mb-1" style={{ color: PINK_SOFT }}>BY MARIEE</p>
-        <div className="flex items-center justify-center gap-1.5 text-xs mb-8 opacity-80">
-          <MapPin size={10} />
-          <span className="tracking-wider">MONTEBELLO, CA</span>
+        <div className="inline-block px-10 py-6 mb-2" style={{ background: "rgba(10, 5, 8, 0.85)", border: `1px solid rgba(255, 20, 147, 0.4)`, boxShadow: `0 0 30px rgba(255, 20, 147, 0.5), inset 0 0 20px rgba(255, 20, 147, 0.15)` }}>
+          <h1 style={{ fontFamily: SCRIPT, color: PINK, fontSize: "clamp(56px, 14vw, 96px)", lineHeight: 0.95, textShadow: `0 0 14px rgba(255,20,147,1), 0 0 28px rgba(255,20,147,0.7), 0 0 42px rgba(255,20,147,0.4)`, margin: "0" }}>
+            Lux Lashes
+          </h1>
+          <p className="text-xs tracking-[0.4em] mt-3 mb-1" style={{ color: "#fff", fontWeight: 600 }}>BY MARIEE</p>
+          <div className="flex items-center justify-center gap-1.5 text-xs" style={{ color: PINK_SOFT, fontWeight: 500 }}>
+            <MapPin size={10} />
+            <span className="tracking-wider">MONTEBELLO, CA</span>
+          </div>
         </div>
+        <div className="mb-8"></div>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button onClick={() => onNav("book")} className="px-7 py-3 text-xs font-bold tracking-widest" style={{ background: PINK, color: BLACK, boxShadow: `0 0 14px rgba(255,20,147,0.6)`, border: `1px solid ${PINK}` }}>
             BOOK NOW ♡
@@ -260,9 +263,11 @@ function HomePage({ onNav }) {
         <PriceTable group="Full Sets" items={PRICES.fullSets} />
         <PriceTable group="Fills" items={PRICES.fills} />
         <PriceTable group="Add-Ons" items={PRICES.addOns} />
-        <p className="text-xs italic text-center mt-4 opacity-70">
-          ♡ Deposit via DM. Balance in Cash or Cashapp. Apple Pay/Zelle adds $5 ♡
-        </p>
+        <div className="text-center mt-4">
+          <p className="text-sm italic inline-block px-4 py-2" style={{ background: "rgba(10, 5, 8, 0.7)", color: "#fff", border: `1px solid rgba(255, 20, 147, 0.3)` }}>
+            ♡ Deposit via DM. Balance in Cash or Cashapp. Apple Pay/Zelle adds $5 ♡
+          </p>
+        </div>
       </section>
 
       <HeartDivider />
@@ -639,12 +644,12 @@ function BookPage({ onNav }) {
 }
 
 function FormLabel({ children }) {
-  return <label className="block text-xs font-bold tracking-widest" style={{ color: PINK }}>♡ {children}</label>;
+  return <label className="block text-sm font-bold tracking-widest mb-1" style={{ color: "#fff", textShadow: `0 0 6px rgba(255, 20, 147, 0.8)` }}>♡ {children}</label>;
 }
 
 function FormInput({ value, onChange, placeholder, type = "text", multiline = false }) {
-  const style = { background: BLACK_CARD, border: `1px solid ${PINK}`, color: PINK_SOFT, fontFamily: "inherit", fontStyle: "italic" };
-  const className = "w-full px-3 py-2.5 text-sm focus:outline-none";
+  const style = { background: "rgba(10, 5, 8, 0.95)", border: `2px solid ${PINK}`, color: "#fff", fontFamily: "inherit", boxShadow: `0 0 8px rgba(255, 20, 147, 0.3)` };
+  const className = "w-full px-4 py-3 text-base focus:outline-none";
   if (multiline) {
     return <textarea rows={3} className={className} style={style} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />;
   }
