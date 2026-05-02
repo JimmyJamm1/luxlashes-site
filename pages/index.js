@@ -99,7 +99,7 @@ function calculateTotal(b) {
     if (newPrice !== null) discount = stylePrice - newPrice;
   }
   let fees = 0;
-  if (b.timeWindow === "evening") fees += 15;
+  if (b.timeWindow === "evening" || b.timeWindow === "early") fees += 15;
   if (b.sameDay) fees += 20;
   return { subtotal, discount, fees, total: subtotal - discount + fees };
 }
@@ -110,6 +110,7 @@ function buildDmMessage(b, t) {
   if (b.addOns?.length) lines.push(`Add-ons: ${b.addOns.map((a) => a.name).join(", ")}`);
   if (t.discount > 0) lines.push(`${SPECIAL.label} applied: -$${t.discount}`);
   if (b.timeWindow === "evening") lines.push(`After-hours fee: +$15`);
+  if (b.timeWindow === "early") lines.push(`Early morning fee: +$15`);
   if (b.sameDay) lines.push(`Same-day fee: +$20`);
   lines.push(`Total: $${t.total}`);
   if (b.date1) lines.push(`Preferred date: ${b.date1}`);
@@ -395,7 +396,7 @@ function BookPage({ onNav }) {
   }
 
   function canProceed() {
-    if (step === 1) return b.name.trim() && b.instagram.trim();
+    if (step === 1) return b.name.trim() && b.instagram.trim() && b.phone.trim();
     if (step === 2) return !!b.style;
     if (step === 3) return !!b.date1;
     if (step === 4) return b.allergies.trim().length > 0;
@@ -467,9 +468,11 @@ function BookPage({ onNav }) {
             <FormInput value={b.name} onChange={(v) => setB({ ...b, name: v })} placeholder="First & last" />
             <FormLabel>Instagram Handle *</FormLabel>
             <FormInput value={b.instagram} onChange={(v) => setB({ ...b, instagram: v })} placeholder="@yourhandle" />
-            <FormLabel>Phone (optional)</FormLabel>
-            <FormInput value={b.phone} onChange={(v) => setB({ ...b, phone: v })} placeholder="(555) 555-5555" />
-            <p className="text-[10px] italic opacity-60 leading-relaxed">♡ Your IG handle is how Mariee will reach you. Make sure it's correct.</p>
+            <FormLabel>Phone *</FormLabel>
+            <FormInput type="tel" value={b.phone} onChange={(v) => setB({ ...b, phone: v })} placeholder="(555) 555-5555" />
+            <p className="text-[10px] italic opacity-60 leading-relaxed">
+              ♡ Your IG handle and phone are how Mariee will reach you.
+            </p>
           </div>
         )}
 
@@ -534,7 +537,7 @@ function BookPage({ onNav }) {
             <FormLabel>Time Window *</FormLabel>
             <div className="space-y-2">
               {[
-                { id: "early", label: "Early Morning · 8:30–9:30 AM" },
+               { id: "early", label: "Early Morning · 8:30–9:30 AM (+$15)" },
                 { id: "morning", label: "Morning · 10 AM start" },
                 { id: "afternoon", label: "Afternoon · 12–4 PM" },
                 { id: "evening", label: "After Hours · After 5 PM (+$15)" },
@@ -589,7 +592,7 @@ function BookPage({ onNav }) {
                 <span>−${totals.discount}</span>
               </div>
             )}
-            {b.timeWindow === "evening" && <div className="flex justify-between text-xs font-bold py-1"><span>♡ After-hours fee</span><span>+$15</span></div>}
+            {(b.timeWindow === "evening" || b.timeWindow === "early") && <div className="flex justify-between text-xs font-bold py-1"><span>♡ {b.timeWindow === "evening" ? "After-hours" : "Early morning"} fee</span><span>+$15</span></div>}
             {b.sameDay && <div className="flex justify-between text-xs font-bold py-1"><span>♡ Same-day fee</span><span>+$20</span></div>}
             <div className="flex justify-between font-black text-base pt-2 mt-2 border-t border-black">
               <span>TOTAL</span>
