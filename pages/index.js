@@ -684,46 +684,69 @@ function FormInput({ value, onChange, placeholder, type = "text", multiline = fa
 // ============================================================
 function PoliciesPage({ onNav }) {
   return (
-    <div style={{ background: CREAM, color: BURGUNDY, minHeight: "100vh" }}>
+    <div style={{ backgroundColor: BLACK, backgroundImage: LEOPARD_BG, backgroundSize: "200px 200px", color: PINK_SOFT, minHeight: "100vh" }}>
       <div className="max-w-2xl mx-auto px-6 py-10">
-        <div className="text-center mb-2">
-          <h1 style={{ fontFamily: SERIF, fontSize: 42, lineHeight: 1.1, letterSpacing: 0.5, color: BURGUNDY }}>
-            <span style={{ color: ROSE, marginRight: 10 }}>♡</span>
-            Policies &amp; Aftercare
-            <span style={{ color: ROSE, marginLeft: 10 }}>♡</span>
-          </h1>
-          <p className="text-xs italic opacity-70 mt-2 mb-4">read before booking</p>
+        <div className="text-center mb-6">
+          <div className="inline-block relative px-8 py-4" style={{ background: "rgba(10, 5, 8, 0.85)", border: `1px solid rgba(255, 20, 147, 0.4)`, boxShadow: `0 0 20px rgba(255, 20, 147, 0.4), inset 0 0 12px rgba(255, 20, 147, 0.15)` }}>
+            <h1 className="flex items-center justify-center gap-3" style={{ fontFamily: SCRIPT, color: PINK, fontSize: 44, lineHeight: 1, textShadow: `0 0 12px rgba(255,20,147,0.95), 0 0 24px rgba(255,20,147,0.7), 0 0 36px rgba(255,20,147,0.4)` }}>
+              <Sparkles size={14} style={{ color: "#fff", filter: `drop-shadow(0 0 4px ${PINK})` }} />
+              Policies &amp; Aftercare
+              <Sparkles size={14} style={{ color: "#fff", filter: `drop-shadow(0 0 4px ${PINK})` }} />
+            </h1>
+          </div>
+          <div className="flex items-center justify-center gap-1 mt-3" style={{ color: PINK }}>
+            <Heart size={6} fill={PINK} stroke={PINK} />
+            <Heart size={8} fill={PINK} stroke={PINK} />
+            <Heart size={10} fill={PINK} stroke={PINK} />
+            <Heart size={12} fill={PINK} stroke={PINK} />
+            <Heart size={10} fill={PINK} stroke={PINK} />
+            <Heart size={8} fill={PINK} stroke={PINK} />
+            <Heart size={6} fill={PINK} stroke={PINK} />
+          </div>
+          <p className="text-xs italic opacity-80 mt-4" style={{ color: "#fff", fontWeight: 500 }}>read before booking</p>
         </div>
-        <LeopardStrip />
+
         <PolicySection title="Fixes" items={POLICIES.fixes} />
-        <LeopardStrip />
         <PolicySection title="Reminder" items={[POLICIES.reminder]} />
-        <LeopardStrip />
         <PolicySection title="Aftercare" items={POLICIES.aftercare} />
-        <LeopardStrip />
         <PolicySection title="Payments" items={POLICIES.payments} />
-        <LeopardStrip />
         <PolicySection title="Before Your Appt" items={POLICIES.beforeAppt} />
-        <LeopardStrip />
         <PolicySection title="Fills" items={POLICIES.fills} />
-        <LeopardStrip />
         <PolicySection title="Booking" items={POLICIES.booking} />
+
         <div className="text-center mt-10">
-          <button onClick={() => onNav("book")} className="px-8 py-3 text-xs font-bold tracking-widest" style={{ background: ROSE, color: "#fff", boxShadow: `0 4px 12px rgba(212,134,155,0.4)` }}>
+          <button onClick={() => onNav("book")} className="px-8 py-3 text-xs font-bold tracking-widest" style={{ background: PINK, color: BLACK, boxShadow: `0 0 14px rgba(255,20,147,0.6)`, border: `1px solid ${PINK}` }}>
             READY TO BOOK ♡
           </button>
         </div>
       </div>
-      <footer className="text-center py-6 text-xs opacity-60" style={{ borderTop: `1px solid rgba(212,134,155,0.3)` }}>
-        ♡ LuxLashes by Mariee · Montebello, CA ♡
-      </footer>
+
+      <Footer />
     </div>
   );
 }
 
-function LeopardStrip() {
-  return <div style={{ height: 18, backgroundImage: LEOPARD_STRIP, backgroundRepeat: "repeat-x", backgroundSize: "120px 16px", backgroundPosition: "center", margin: "20px 0", opacity: 0.8 }} />;
+function PolicySection({ title, items }) {
+  return (
+    <section className="my-8 px-5 py-5" style={{ background: "rgba(10, 5, 8, 0.85)", border: `1px solid rgba(255, 20, 147, 0.3)`, boxShadow: `0 0 12px rgba(255, 20, 147, 0.15)` }}>
+      <h2 className="text-center mb-4 flex items-center justify-center gap-2" style={{ fontFamily: SCRIPT, color: PINK, fontSize: 28, lineHeight: 1, textShadow: `0 0 8px rgba(255,20,147,0.8), 0 0 16px rgba(255,20,147,0.4)` }}>
+        <Sparkles size={10} style={{ color: "#fff", filter: `drop-shadow(0 0 3px ${PINK})` }} />
+        {title}
+        <Sparkles size={10} style={{ color: "#fff", filter: `drop-shadow(0 0 3px ${PINK})` }} />
+      </h2>
+      <div className="space-y-3">
+        {items.map((it, i) => (
+          <div key={i} className="flex items-start gap-3 text-sm leading-relaxed" style={{ color: "#fff" }}>
+            <Heart size={11} fill={PINK} stroke={PINK} style={{ marginTop: 4, flexShrink: 0 }} />
+            <span style={{ color: PINK_SOFT }}>{it}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
+
+
 
 function PolicySection({ title, items }) {
   return (
@@ -785,7 +808,7 @@ export default function App() {
       </Head>
       <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
         {bannerOpen && page !== "policies" && <Banner onClose={() => setBannerOpen(false)} />}
-        <Nav page={page} onNav={nav} theme={page === "policies" ? "refined" : "bold"} />
+        <Nav page={page} onNav={nav} theme="bold" />
         {page === "home" && <HomePage onNav={nav} />}
         {page === "book" && <BookPage onNav={nav} />}
         {page === "policies" && <PoliciesPage onNav={nav} />}
