@@ -281,10 +281,10 @@ function HomePage({ onNav }) {
         <SectionTitle>Gallery</SectionTitle>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {Array.from({ length: 8 }).map((_, i) => (
-  <div key={i} className="aspect-square overflow-hidden flex items-center justify-center" style={{ background: `linear-gradient(135deg, #2a1018, #14080d)`, border: `1px solid rgba(255,20,147,0.25)` }}>
-    <img src={`/gallery/lash-${i + 1}.jpg`} alt="" className="w-full h-full object-contain" />
-  </div>
-))}
+            <div key={i} className="overflow-hidden" style={{ aspectRatio: "3 / 4", background: `linear-gradient(135deg, #2a1018, #14080d)`, border: `1px solid rgba(255,20,147,0.25)` }}>
+              <img src={`/gallery/lash-${i + 1}.jpg`} alt="" className="w-full h-full object-cover" />
+            </div>
+          ))}
         </div>
       </section>
 
