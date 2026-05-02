@@ -461,10 +461,7 @@ function BookPage({ onNav }) {
         <p className="text-sm mb-6 max-w-md leading-relaxed">
           Tap below to send this message + your <strong style={{ color: PINK }}>$20 deposit</strong> to Mariee on Instagram. She'll confirm your appointment in DMs.
         </p>
-        <a href={igDmUrl(dmMessage)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold tracking-widest" style={{ background: PINK, color: BLACK, boxShadow: `0 0 16px rgba(255,20,147,0.7)` }}>
-          <Instagram size={18} />
-          OPEN INSTAGRAM ♡
-        </a>
+        <CopyMessageButtons message={dmMessage} />
         <button onClick={() => onNav("home")} className="mt-6 text-xs underline opacity-70">Back to home</button>
       </div>
     );
@@ -642,7 +639,33 @@ function BookPage({ onNav }) {
     </div>
   );
 }
-
+function CopyMessageButtons({ message }) {
+  const [copied, setCopied] = useState(false);
+  const igUrl = "https://ig.me/m/luxlashesbymariee";
+  async function copyAndOpen() {
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (e) {
+      console.error("Copy failed:", e);
+    }
+  }
+  return (
+    <div className="flex flex-col items-center gap-3 w-full max-w-md">
+      <button onClick={copyAndOpen} className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold tracking-widest w-full" style={{ background: copied ? "#0a0508" : PINK, color: copied ? PINK : "#0a0508", border: `2px solid ${PINK}`, boxShadow: `0 0 12px rgba(255,20,147,0.5)` }}>
+        {copied ? "✓ MESSAGE COPIED ♡" : "COPY MESSAGE ♡"}
+      </button>
+      <a href={igUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold tracking-widest w-full" style={{ background: PINK, color: "#0a0508", boxShadow: `0 0 16px rgba(255,20,147,0.7)` }}>
+        <Instagram size={18} />
+        OPEN INSTAGRAM ♡
+      </a>
+      <p className="text-xs italic opacity-80 mt-2 px-4 text-center leading-relaxed">
+        ♡ Tap COPY first, then OPEN INSTAGRAM. Paste the message in your DM with Mariee. ♡
+      </p>
+    </div>
+  );
+}
 function FormLabel({ children }) {
   return <label className="block text-sm font-bold tracking-widest mb-1" style={{ color: "#fff", textShadow: `0 0 6px rgba(255, 20, 147, 0.8)` }}>♡ {children}</label>;
 }
