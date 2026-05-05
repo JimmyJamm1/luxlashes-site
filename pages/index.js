@@ -405,30 +405,37 @@ function BookPage({ onNav }) {
 
   async function handleSubmit() {
     if (!canProceed()) return;
-    // Submit to Netlify Forms
-    const formData = new FormData();
-    formData.append("form-name", "booking");
-    formData.append("name", b.name);
-    formData.append("instagram", b.instagram);
-    formData.append("phone", b.phone);
-    formData.append("service", b.style?.name || "");
-    formData.append("addons", b.addOns.map(a => a.name).join(", "));
-    formData.append("date1", b.date1);
-    formData.append("date2", b.date2);
-    formData.append("timeWindow", b.timeWindow);
-    formData.append("sameDay", b.sameDay ? "Yes" : "No");
-    formData.append("firstTime", b.firstTime);
-    formData.append("allergies", b.allergies);
-    formData.append("notes", b.notes);
-    formData.append("total", `$${totals.total}`);
+    const formData = {
+      "form-name": "booking",
+      name: b.name,
+      instagram: b.instagram,
+      phone: b.phone,
+      service: b.style?.name || "",
+      addons: b.addOns.map(a => a.name).join(", "),
+      date1: b.date1,
+      date2: b.date2,
+      timeWindow: b.timeWindow,
+      sameDay: b.sameDay ? "Yes" : "No",
+      firstTime: b.firstTime,
+      allergies: b.allergies,
+      notes: b.notes,
+      total: `$${totals.total}`,
+    };
     try {
-      await fetch("/", {
+      const response = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
+      if (!response.ok) {
+        console.error("Form submission failed:", response.status);
+        alert("Booking submission failed. Please screenshot your booking and DM Mariee directly.");
+        return;
+      }
     } catch (e) {
       console.error("Form submission error:", e);
+      alert("Booking submission failed. Please screenshot your booking and DM Mariee directly.");
+      return;
     }
     setSubmitted(true);
   }
