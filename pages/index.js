@@ -80,7 +80,21 @@ function getDaysLeft(endDate) {
   const now = new Date();
   return Math.ceil((end - now) / (1000 * 60 * 60 * 24));
 }
+function isTimeWithFee(time) {
+  if (!time) return false;
+  const earlyTimes = ["9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM"];
+  const afterHoursTimes = ["5:15 PM", "5:30 PM", "5:45 PM", "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM"];
+  return earlyTimes.includes(time) || afterHoursTimes.includes(time);
+}
 
+function getTimeCategory(time) {
+  if (!time) return "";
+  const earlyTimes = ["9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM"];
+  const afterHoursTimes = ["5:15 PM", "5:30 PM", "5:45 PM", "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM"];
+  if (earlyTimes.includes(time)) return "Early morning";
+  if (afterHoursTimes.includes(time)) return "After hours";
+  return "Mid day";
+}
 function getDiscountedPrice(price, id) {
   if (!SPECIAL.active || !SPECIAL.appliesTo.includes(id)) return null;
   if (SPECIAL.type === "percent") return Math.round(price * (1 - SPECIAL.value / 100));
@@ -99,7 +113,7 @@ function calculateTotal(b) {
     if (newPrice !== null) discount = stylePrice - newPrice;
   }
   let fees = 0;
-  if (b.timeWindow === "evening" || b.timeWindow === "early") fees += 15;
+  if (b.time && isTimeWithFee(b.time)) fees += 15;
   if (b.sameDay) fees += 20;
   return { subtotal, discount, fees, total: subtotal - discount + fees };
 }
@@ -109,8 +123,8 @@ function buildDmMessage(b, t) {
   if (b.style) lines.push(`Service: ${b.style.name}`);
   if (b.addOns?.length) lines.push(`Add-ons: ${b.addOns.map((a) => a.name).join(", ")}`);
   if (t.discount > 0) lines.push(`${SPECIAL.label} applied: -$${t.discount}`);
-  if (b.timeWindow === "evening") lines.push(`After-hours fee: +$15`);
-  if (b.timeWindow === "early") lines.push(`Early morning fee: +$15`);
+  if (b.time) lines.push(`Time: ${b.time}`);
+  if (b.time && isTimeWithFee(b.time)) lines.push(`${getTimeCategory(b.time)} fee: +$15`);
   if (b.sameDay) lines.push(`Same-day fee: +$20`);
   lines.push(`Total: $${t.total}`);
   if (b.date1) lines.push(`Preferred date: ${b.date1}`);
@@ -380,7 +394,7 @@ function BookPage({ onNav }) {
   const [b, setB] = useState({
     name: "", instagram: "", phone: "",
     serviceType: "set", style: null, addOns: [],
-    date1: "", date2: "", timeWindow: "morning", sameDay: false,
+    date1: "", date2: "", time: "", sameDay: false,
     firstTime: "no", allergies: "", notes: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -398,7 +412,7 @@ function BookPage({ onNav }) {
   function canProceed() {
     if (step === 1) return b.name.trim() && b.instagram.trim() && b.phone.trim();
     if (step === 2) return !!b.style;
-    if (step === 3) return !!b.date1;
+    if (step === 3) return !!b.date1 && !!b.time;
     if (step === 4) return b.allergies.trim().length > 0;
     return true;
   }
@@ -414,7 +428,7 @@ function BookPage({ onNav }) {
       addons: b.addOns.map(a => a.name).join(", "),
       date1: b.date1,
       date2: b.date2,
-      timeWindow: b.timeWindow,
+      time: b.time,
       sameDay: b.sameDay ? "Yes" : "No",
       firstTime: b.firstTime,
       allergies: b.allergies,
@@ -541,19 +555,20 @@ function BookPage({ onNav }) {
             <FormInput type="date" value={b.date1} onChange={(v) => setB({ ...b, date1: v })} />
             <FormLabel>Backup Date (optional)</FormLabel>
             <FormInput type="date" value={b.date2} onChange={(v) => setB({ ...b, date2: v })} />
-            <FormLabel>Time Window *</FormLabel>
-            <div className="space-y-2">
-              {[
-               { id: "early", label: "Early Morning · 8:30–9:30 AM (+$15)" },
-                { id: "morning", label: "Morning · 10 AM start" },
-                { id: "afternoon", label: "Afternoon · 12–4 PM" },
-                { id: "evening", label: "After Hours · After 5 PM (+$15)" },
-              ].map((opt) => (
-                <button key={opt.id} onClick={() => setB({ ...b, timeWindow: opt.id })} className="w-full text-left px-4 py-2.5 text-xs italic" style={{ background: b.timeWindow === opt.id ? `rgba(255,20,147,0.2)` : BLACK_CARD, border: `1px solid ${b.timeWindow === opt.id ? PINK : "rgba(255,20,147,0.3)"}`, color: PINK_SOFT }}>
-                  ♡ {opt.label}
-                </button>
-              ))}
-            </div>
+            <FormLabel>Appointment Time *</FormLabel>
+            <select value={b.time || ""} onChange={(e) => setB({ ...b, time: e.target.value })} className="w-full px-4 py-3 text-base focus:outline-none" style={{ background: "rgba(10, 5, 8, 0.95)", border: `2px solid ${PINK}`, color: "#fff", fontFamily: "inherit", boxShadow: `0 0 8px rgba(255, 20, 147, 0.3)` }}>
+              <option value="">Select a time...</option>
+              <optgroup label="Early Morning (+$15 fee)">
+                {["9:00 AM", "9:15 AM", "9:30 AM", "9:45 AM", "10:00 AM"].map(t => <option key={t} value={t}>{t}</option>)}
+              </optgroup>
+              <optgroup label="Mid Day (no extra fee)">
+                {["10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM", "12:30 PM", "12:45 PM", "1:00 PM", "1:15 PM", "1:30 PM", "1:45 PM", "2:00 PM", "2:15 PM", "2:30 PM", "2:45 PM", "3:00 PM", "3:15 PM", "3:30 PM", "3:45 PM", "4:00 PM", "4:15 PM", "4:30 PM", "4:45 PM", "5:00 PM"].map(t => <option key={t} value={t}>{t}</option>)}
+              </optgroup>
+              <optgroup label="After Hours (+$15 fee)">
+                {["5:15 PM", "5:30 PM", "5:45 PM", "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM"].map(t => <option key={t} value={t}>{t}</option>)}
+              </optgroup>
+            </select>
+            <p className="text-[10px] italic opacity-70 leading-relaxed mt-1">♡ Appointments take 3-3.5 hours. Early morning &amp; after-hours add a $15 fee.</p>
             <button onClick={() => setB({ ...b, sameDay: !b.sameDay })} className="w-full flex items-center gap-2 px-4 py-3 text-xs italic mt-2" style={{ background: b.sameDay ? `rgba(255,20,147,0.2)` : BLACK_CARD, border: `1px solid ${b.sameDay ? PINK : "rgba(255,20,147,0.3)"}`, color: PINK_SOFT }}>
               <span className="inline-flex items-center justify-center" style={{ width: 14, height: 14, background: b.sameDay ? PINK : "transparent", border: `1px solid ${PINK}`, flexShrink: 0 }}>
                 {b.sameDay && <Check size={10} stroke={BLACK} strokeWidth={3} />}
@@ -599,7 +614,7 @@ function BookPage({ onNav }) {
                 <span>−${totals.discount}</span>
               </div>
             )}
-            {(b.timeWindow === "evening" || b.timeWindow === "early") && <div className="flex justify-between text-xs font-bold py-1"><span>♡ {b.timeWindow === "evening" ? "After-hours" : "Early morning"} fee</span><span>+$15</span></div>}
+            {b.time && isTimeWithFee(b.time) && <div className="flex justify-between text-xs font-bold py-1"><span>♡ {getTimeCategory(b.time)} fee</span><span>+$15</span></div>}
             {b.sameDay && <div className="flex justify-between text-xs font-bold py-1"><span>♡ Same-day fee</span><span>+$20</span></div>}
             <div className="flex justify-between font-black text-base pt-2 mt-2 border-t border-black">
               <span>TOTAL</span>
